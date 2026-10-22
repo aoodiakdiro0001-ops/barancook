@@ -1,0 +1,62 @@
+/* Baran Cook — RTL-first dark atlas UI (v101) */
+:root{
+  --bg:#0b0f14; --bg2:#0f151c; --card:#141b24; --paper:#0d1219;
+  --text:#e8eef6; --dim:#94a3b8; --line:#1e2938;
+  --acc:#2dd4bf; --acc2:#f59e0b; --warn:#ef4444;
+  --rad:14px; --shadow:0 8px 26px rgba(0,0,0,.45);
+  --grad:linear-gradient(135deg,#2dd4bf 0%,#0ea5e9 55%,#8b5cf6 100%);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif}
+a{color:var(--acc)}
+
+/* ---------- header ---------- */
+.up{display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:18px 22px;background:var(--bg2);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:10px}
+.brand .mark{font-size:26px}
+.brand strong{font-size:20px;letter-spacing:.4px}
+.brand small{display:block;color:var(--dim);font-size:12px;margin-top:-2px}
+.tools{margin-inline-start:auto;width:100%}
+.mids{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+input[type=search]{flex:1 1 260px;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:var(--rad);background:var(--paper);color:var(--text)}
+select,button{padding:9px 12px;border-radius:var(--rad);border:1px solid var(--line);background:var(--paper);color:var(--text);cursor:pointer}
+button.chip{border-color:transparent;background:#16202c}
+button.chip:hover{background:#1b2736}
+button.chip.on{background:var(--grad);border-color:transparent;font-weight:600}
+
+/* ---------- main ---------- */
+main{padding:20px 22px 26px}
+.strip{margin-bottom:14px;color:var(--dim);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--rad);padding:14px;box-shadow:var(--shadow);cursor:pointer;transition:transform .15s ease}
+.card:hover{transform:translateY(-3px)}
+.card h3{margin:0 0 6px;font-size:16px;line-height:1.4}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.badge{font-size:11px;padding:3px 8px;border-radius:999px;background:#16202c;color:var(--dim);border:1px solid var(--line)}
+.badge.c{background:rgba(45,212,191,.12);color:var(--acc);border-color:rgba(45,212,191,.35)}
+.badge.d{background:rgba(245,158,11,.12);color:var(--acc2);border-color:rgba(245,158,11,.35)}
+.card p{margin:0;color:var(--dim);font-size:13px;line-height:1.55}
+
+/* ---------- modal ---------- */
+.modal{position:fixed;inset:0;background:rgba(4,7,11,.72);display:flex;align-items:flex-start;justify-content:center;padding:26px 14px;z-index:100}
+.modal[hidden]{display:none!important}
+.sheet{background:var(--paper);border:1px solid var(--line);border-radius:18px;max-width:760px;width:100%;max-height:88vh;overflow:auto;padding:22px;position:relative;box-shadow:0 18px 60px rgba(0,0,0,.6)}
+.close{position:absolute;inset-inline-start:12px;top:12px;background:#16202c;border:none;width:32px;height:32px;border-radius:50%;font-size:16px}
+.sheet h2{margin:0 6px 4px}
+.sheet .heads{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px}
+.sheet .steps{counter-reset:step}
+.sheet ol{list-style:none;padding:0;margin:0}
+.sheet ol li{counter-increment:step;padding:12px 14px;margin-bottom:8px;background:#12181f;border:1px solid var(--line);border-radius:12px;line-height:1.65}
+.sheet ol li::before{content:counter(step);display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin-inline-end:10px;background:var(--grad);color:#06231f;border-radius:50%;font-weight:700;font-size:12px}
+.sheet ul.ing{list-style:none;padding:0;margin:0 0 14px}
+.sheet ul.ing li{padding:8px 12px;margin-bottom:6px;background:#12181f;border:1px solid var(--line);border-radius:10px;display:flex;justify-content:space-between;gap:8px}
+.sheet ul.ing b{font-weight:600}
+.sheet small.mtime{color:var(--dim);font-size:12px}
+.sheet code{background:#0b1017;padding:1px 6px;border-radius:6px;color:var(--acc)}
+
+/* ---------- footer ---------- */
+.foot{padding:16px 22px 22px;background:var(--bg2);border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;line-height:1.5}
+.foot p{margin:3px 0}
+.foot .din code{font-size:11px;word-break:break-all}
+.foot .honesty{border-top:1px solid var(--line);padding-top:8px;margin-top:8px}
+[lang="en"] body{direction:ltr}

@@ -1,0 +1,20 @@
+{
+  "name": "barancook",
+  "version": "1.0.0",
+  "description": "Baran Cook — Global Recipe Atlas (honest local core + import pipeline + unit normalizer + AI hooks). Zero-dependency Node.js.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "bash smoke.sh"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "author": "Baranavisat <baranavisat@gmail.com>",
+  "homepage": "https://baranavi.gumroad.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aoodiakdiro0001-ops/barancook"
+  }
+}

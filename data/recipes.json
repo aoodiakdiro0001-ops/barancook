@@ -1,0 +1,1620 @@
+{
+  "version": 1,
+  "updated_at": "2026-10-22T00:00:00.000Z",
+  "recipes": [
+    {
+      "id": "hummus-levant",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Levant",
+      "geo": {
+        "ar": "بلاد الشام",
+        "en": "Levant"
+      },
+      "category": "Appetizer",
+      "languages": {
+        "ar": {
+          "title": "حمّص بالطحينة",
+          "description": "صحن شامي أيقوني — للحمص الحريري يجب تقشير الحمّص بعد سلق طويل.",
+          "ingredients": [
+            {
+              "name": "حمّص",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "طحينة",
+              "amount": 4,
+              "unit": "tbsp"
+            },
+            {
+              "name": "عصير ليمون",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "ثوم",
+              "amount": 2,
+              "unit": "count"
+            },
+            {
+              "name": "ملح",
+              "amount": 1,
+              "unit": "tsp"
+            },
+            {
+              "name": "زيت زيتون",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "انقع الحمّص الجاف في ماء بارد ليلة كاملة (أو استخدم معلّباً مصفّى)."
+            },
+            {
+              "step_number": 2,
+              "instruction": "اسلقه مع رشّة بيكربونات الصودا 40 دقيقة حتى يفصخ القشر."
+            },
+            {
+              "step_number": 3,
+              "instruction": "أزل القشرة ثم اخفقه في الخالط مع الطحينة والليمون والثوم والملح."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضف ماء السلق تدريجياً حتى القوام الحريري — قدمه بالزيت والبابريكا."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Hummus with Tahini",
+          "description": "Iconic Levantine dish — silky hummus requires peeling the chickpeas after a long simmer.",
+          "ingredients": [
+            {
+              "name": "chickpeas",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "tahini",
+              "amount": 4,
+              "unit": "tbsp"
+            },
+            {
+              "name": "lemon juice",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "garlic",
+              "amount": 2,
+              "unit": "count"
+            },
+            {
+              "name": "salt",
+              "amount": 1,
+              "unit": "tsp"
+            },
+            {
+              "name": "olive oil",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Soak dried chickpeas in cold water overnight (or use well-drained canned)."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Simmer with a pinch of baking soda for 40 minutes until skins loosen."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Peel the skins then blend with tahini, lemon juice, garlic and salt."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Add cooking water gradually to a silky texture; finish with olive oil and paprika."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 40,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "koshari-egypt",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Egypt",
+      "geo": {
+        "ar": "مصر",
+        "en": "Egypt"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "كشري مصري",
+          "description": "الطعام الوطني المصري: طبقات رز وعدس ومكرونة وبصل مقلي وصلصة حارصة وحمّص مسلوق.",
+          "ingredients": [
+            {
+              "name": "أرز",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "عدس بني",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "مكرونة",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "بصل",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "صلصة طماطم",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "حمّص مسلوق",
+              "amount": 1,
+              "unit": "cup"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "اسلقه العدس حتى ينضج دون أن يتفكك، ثم صفّه."
+            },
+            {
+              "step_number": 2,
+              "instruction": "اطبخ الرز بنسبة 1:2 مع الماء والملح."
+            },
+            {
+              "step_number": 3,
+              "instruction": "اسلق المكرونة، ثم اقلي البصل حتى يتحمّر ذهبياً."
+            },
+            {
+              "step_number": 4,
+              "instruction": "قدّم بالطبقات: رز، عدس، مكرونة، ثم صلصة الطماطم والحمّص والبصل المقلي على القمة."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Egyptian Koshari",
+          "description": "Egypt's national dish — layered rice, lentils, pasta, crisp onions, tomato sauce and chickpeas.",
+          "ingredients": [
+            {
+              "name": "rice",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "brown lentils",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "pasta",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "onions",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "tomato sauce",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "chickpeas",
+              "amount": 1,
+              "unit": "cup"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Boil lentils until just tender; drain."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Cook rice with a 2:1 water-to-rice ratio and salt."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Boil pasta; fry thin onion slices until deep golden crisp."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Layer rice, lentils, pasta; top with tomato sauce, chickpeas and onions."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 25,
+      "cook_time_minutes": 50,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal",
+        "May-Contain-Gluten"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "turkish-pilav",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Turkey",
+      "geo": {
+        "ar": "تركيا",
+        "en": "Turkey"
+      },
+      "category": "Side",
+      "languages": {
+        "ar": {
+          "title": "بيلاف تركي بالصنوبر",
+          "description": "أرز تركي: كل حبة مختومة بالزبدة، مع صنوبر مُحمص وعنب مجفف.",
+          "ingredients": [
+            {
+              "name": "أرز",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "زبدة",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "صنوبر",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "عنب مجفف",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "مرق دجاج",
+              "amount": 4,
+              "unit": "cups"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "انقع الأرز في ماء ساخن 20 دقيقة ثم صفّه."
+            },
+            {
+              "step_number": 2,
+              "instruction": "حمص الصنوبر في الزبدة حتى الذهب."
+            },
+            {
+              "step_number": 3,
+              "instruction": "أضف الأرز وقلّبه لحفظ كل حبة بالزبدة."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضف مرق الدجاج الحار، أغلق الغطاء، اطبخ 20 دقيقة على نار هادئة."
+            },
+            {
+              "step_number": 5,
+              "instruction": "أضف العنب المجفف قبيل التقديم."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Turkish Pilav with Pine Nuts",
+          "description": "Turkish rice — every grain coated in butter and studded with pine nuts and currants.",
+          "ingredients": [
+            {
+              "name": "rice",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "butter",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "pine nuts",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "currants",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "chicken broth",
+              "amount": 4,
+              "unit": "cups"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Soak rice in hot water for 20 minutes; drain well."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Toast pine nuts in butter until golden."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Add the rice and stir to coat every grain."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Pour hot chicken broth, cover, simmer 20 minutes on low."
+            },
+            {
+              "step_number": 5,
+              "instruction": "Fold in currants right before serving."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 25,
+      "cook_time_minutes": 25,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "chicken-ramen-jp",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Japan",
+      "geo": {
+        "ar": "اليابان",
+        "en": "Japan"
+      },
+      "category": "Soup",
+      "languages": {
+        "ar": {
+          "title": "رامن دجاج تقليدي",
+          "description": "وصفة يابانية أصيلة: مرقة دجاج تمرد شقت ثلاث ساعات مع نودلز رامن.",
+          "ingredients": [
+            {
+              "name": "نودلز رامن",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "عظام دجاج",
+              "amount": 1,
+              "unit": "kg"
+            },
+            {
+              "name": "صلصة صويا",
+              "amount": 4,
+              "unit": "tbsp"
+            },
+            {
+              "name": "زنجبيل",
+              "amount": 20,
+              "unit": "g"
+            },
+            {
+              "name": "بصل أخضر",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "بيض",
+              "amount": 2,
+              "unit": "count"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "اغلي عظام الدجاج مع الزنجبيل في قدر كبير 2.5 ساعة ثم رفِ."
+            },
+            {
+              "step_number": 2,
+              "instruction": "تبمّر المرقة بصلصة الصويا والملح."
+            },
+            {
+              "step_number": 3,
+              "instruction": "اسلق النودلز في قدر منفصل."
+            },
+            {
+              "step_number": 4,
+              "instruction": "قدّم: نودلز ثم مرق ثم بيض مسلوق وبصل أخضر مقطع."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Traditional Chicken Ramen",
+          "description": "Authentic Japanese recipe — long-simmered chicken broth with delicate noodles.",
+          "ingredients": [
+            {
+              "name": "ramen noodles",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "chicken bones",
+              "amount": 1,
+              "unit": "kg"
+            },
+            {
+              "name": "soy sauce",
+              "amount": 4,
+              "unit": "tbsp"
+            },
+            {
+              "name": "ginger",
+              "amount": 20,
+              "unit": "g"
+            },
+            {
+              "name": "green onions",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "eggs",
+              "amount": 2,
+              "unit": "count"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Simmer bones with ginger in a large pot 2.5 hours, then strain."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Season the broth with soy sauce and salt."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Cook ramen noodles in a separate pot."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Assemble: noodles first, hot broth, soft-boiled egg, sliced green onion."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 30,
+      "cook_time_minutes": 150,
+      "servings": 4,
+      "dietary_tags": [
+        "Halal"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "bibimbap-kr",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Korea",
+      "geo": {
+        "ar": "كوريا",
+        "en": "Korea"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "بيمباب كوري نباتي",
+          "description": "وعاء الأرز الكوري: خضار مُقشّة كل نوع مع السمسم وجوجنغنغ (فلفل حار) على القمة.",
+          "ingredients": [
+            {
+              "name": "أرز",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "سباناخ",
+              "amount": 100,
+              "unit": "g"
+            },
+            {
+              "name": "جزر",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "فطر شيتاكي",
+              "amount": 100,
+              "unit": "g"
+            },
+            {
+              "name": "جوجنغان (فلفل حار)",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "بذور سمسم",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "اطبخ الأرز وتمّه بلوحة خشب من زيت السمسم."
+            },
+            {
+              "step_number": 2,
+              "instruction": "شوّه كل خضار منفرداً مع ملح خفيف."
+            },
+            {
+              "step_number": 3,
+              "instruction": "ترتّب الخضار على الرز في كتل ملوّنة."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضف جوجنغان وامزج قبل الأكل."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Korean Bibimbap (Vegetarian)",
+          "description": "Korean rice bowl with seasoned vegetables, sesame oil and gochujang chili paste.",
+          "ingredients": [
+            {
+              "name": "rice",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "spinach",
+              "amount": 100,
+              "unit": "g"
+            },
+            {
+              "name": "carrot",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "shiitake mushrooms",
+              "amount": 100,
+              "unit": "g"
+            },
+            {
+              "name": "gochujang",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "sesame seeds",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Cook rice and season with a spoon of sesame oil."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Sauté each vegetable separately with a pinch of salt."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Arrange the vegetables in colour blocks on the rice."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Add gochujang chili paste and mix right before eating."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 25,
+      "servings": 2,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "butter-chicken-in",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "India",
+      "geo": {
+        "ar": "الهند",
+        "en": "India"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "دجاج بالزبدة (مرغ ماخاني)",
+          "description": "طبق دلهي الأسطوري: دجاج متبّل بالزبادي، يصير في صلصة طماطم كريميّة.",
+          "ingredients": [
+            {
+              "name": "صدر دجاج",
+              "amount": 800,
+              "unit": "g"
+            },
+            {
+              "name": "زبادي",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "زبدة",
+              "amount": 60,
+              "unit": "g"
+            },
+            {
+              "name": "كريما",
+              "amount": 200,
+              "unit": "ml"
+            },
+            {
+              "name": "طماطم",
+              "amount": 400,
+              "unit": "g"
+            },
+            {
+              "name": "جارام مصلا",
+              "amount": 2,
+              "unit": "tsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "انقع الدجاج في الزبادي مع الزنجبيل والثوم والبهارات لمدة ساعة."
+            },
+            {
+              "step_number": 2,
+              "instruction": "شيّ الدجان في مقلاة حارّة حتى حد الأسود."
+            },
+            {
+              "step_number": 3,
+              "instruction": "دب الكريم زبدة مع الطماطم وجارام مصلا بحلاوة سلسة."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضفُ الكريما، اطبخ 10 دقيقة، ثم انضمام الدجان؛ اطبخ 10 دقيقة أخيرة."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Butter Chicken (Murgh Makhani)",
+          "description": "Iconic Delhi dish — yogurt-marinated chicken finished in a creamy tomato sauce.",
+          "ingredients": [
+            {
+              "name": "chicken breast",
+              "amount": 800,
+              "unit": "g"
+            },
+            {
+              "name": "yogurt",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "butter",
+              "amount": 60,
+              "unit": "g"
+            },
+            {
+              "name": "cream",
+              "amount": 200,
+              "unit": "ml"
+            },
+            {
+              "name": "tomatoes",
+              "amount": 400,
+              "unit": "g"
+            },
+            {
+              "name": "garam masala",
+              "amount": 2,
+              "unit": "tsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Marinate chicken in yogurt, ginger-garlic and garam masala for 1 hour."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Char the chicken in a hot pan (or under the broiler)."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Melt butter, cook tomatoes with garam masala to a smooth sauce."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Stir in cream, simmer 10 minutes; fold in the chicken and simmer 10 more."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 70,
+      "cook_time_minutes": 35,
+      "servings": 4,
+      "dietary_tags": [
+        "Halal",
+        "Gluten-Free"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "black-bean-tacos-mx",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Mexico",
+      "geo": {
+        "ar": "المكسيك",
+        "en": "Mexico"
+      },
+      "category": "Street Food",
+      "languages": {
+        "ar": {
+          "title": "تاكو الفاصوليا السوداء (نباتي)",
+          "description": "طعام شوارع المكسيكي بلا لحم: فاصوليا سوداء بالكومين، ذرة، أفوكادو وليمون.",
+          "ingredients": [
+            {
+              "name": "فاصوليا سوداء",
+              "amount": 400,
+              "unit": "g"
+            },
+            {
+              "name": "تورتيا ذرة",
+              "amount": 8,
+              "unit": "count"
+            },
+            {
+              "name": "ذرة",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "أفوكادو",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "ليمون",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "كزبرة طازجة",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "سخّن الفاصوليا مع الكومين وطلب من عصير الليمون."
+            },
+            {
+              "step_number": 2,
+              "instruction": "حمّب التورتيات على لهب."
+            },
+            {
+              "step_number": 3,
+              "instruction": "هرس الأفوكادو مع الليمون والملح حتى جواهل."
+            },
+            {
+              "step_number": 4,
+              "instruction": "قدّم: فاصوليا، ذرة، أفوكادو، كيلي كُوبّي وأسباق ليمون."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Black Bean Tacos (Vegetarian)",
+          "description": "Mexican street food, meat-free — black beans with corn, avocado, lime and cilantro.",
+          "ingredients": [
+            {
+              "name": "black beans",
+              "amount": 400,
+              "unit": "g"
+            },
+            {
+              "name": "corn tortillas",
+              "amount": 8,
+              "unit": "count"
+            },
+            {
+              "name": "corn kernels",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "avocado",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "lime",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "fresh cilantro",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Warm beans with cumin and a splash of lime juice."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Char the corn tortillas briefly over a flame."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Mash avocado with lime and salt into quick guacamole."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Assemble: beans, corn, guacamole, cilantro and lime wedges."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 15,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Gluten-Free"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "caprese-it",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Italy",
+      "geo": {
+        "ar": "إيطاليا",
+        "en": "Italy"
+      },
+      "category": "Salad",
+      "languages": {
+        "ar": {
+          "title": "سلطة كابريزي",
+          "description": "ألوان علم إيطاليا على طبق: طماطم، موزاريلا طازجة وريحان.",
+          "ingredients": [
+            {
+              "name": "طماطم",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "موزاريلا طازجة",
+              "amount": 250,
+              "unit": "g"
+            },
+            {
+              "name": "ريحان",
+              "amount": 20,
+              "unit": "g"
+            },
+            {
+              "name": "زيت زيتون",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "ملح",
+              "amount": 0.5,
+              "unit": "tsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "قطّع الطماطم والموزاريلا في دوائير السمك نفسه."
+            },
+            {
+              "step_number": 2,
+              "instruction": "رتّب بالتبادل: طماطم، موزاريلا، ورقة ريحان."
+            },
+            {
+              "step_number": 3,
+              "instruction": "ترش بزيت الزيتون والملح السماقي."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Caprese Salad",
+          "description": "Italian tricolore on a plate — tomatoes, fresh mozzarella and basil.",
+          "ingredients": [
+            {
+              "name": "tomatoes",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "fresh mozzarella",
+              "amount": 250,
+              "unit": "g"
+            },
+            {
+              "name": "basil",
+              "amount": 20,
+              "unit": "g"
+            },
+            {
+              "name": "olive oil",
+              "amount": 3,
+              "unit": "tbsp"
+            },
+            {
+              "name": "salt",
+              "amount": 0.5,
+              "unit": "tsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Slice tomatoes and mozzarella into equal rounds."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Alternate tomato, mozzarella and a basil leaf on the plate."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Drizzle with olive oil and flaky salt."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 10,
+      "cook_time_minutes": 0,
+      "servings": 2,
+      "dietary_tags": [
+        "Vegetarian",
+        "Gluten-Free",
+        "Halal"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "french-onion-soup",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "France",
+      "geo": {
+        "ar": "فرنسا",
+        "en": "France"
+      },
+      "category": "Soup",
+      "languages": {
+        "ar": {
+          "title": "شوربة البصل الفرنسية",
+          "description": "بصل كرملي في مرقة لحم، مغطى بخبز بغيت وجبن غرويير مذاب.",
+          "ingredients": [
+            {
+              "name": "بصل",
+              "amount": 6,
+              "unit": "count"
+            },
+            {
+              "name": "زبدة",
+              "amount": 50,
+              "unit": "g"
+            },
+            {
+              "name": "مرق لحم البقر",
+              "amount": 1.5,
+              "unit": "liter"
+            },
+            {
+              "name": "خبز بغيت",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "جبن غرويير",
+              "amount": 150,
+              "unit": "g"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "كرمل البصل في الزبدة 40 دقيقة على نار هادئة حتى يصبح ذهبياً كراميلياً."
+            },
+            {
+              "step_number": 2,
+              "instruction": "أضف المرق; اغلي 20 دقيقة."
+            },
+            {
+              "step_number": 3,
+              "instruction": "اسكب في أكواب آمنة للفرن؛ ضع شرائح البغيت على السطح."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضف الغرويير; اشوي 10 دقائق حتى الذهب."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "French Onion Soup",
+          "description": "Caramelized onions in a rich beef broth topped with baguette and melted cheese.",
+          "ingredients": [
+            {
+              "name": "onions",
+              "amount": 6,
+              "unit": "count"
+            },
+            {
+              "name": "butter",
+              "amount": 50,
+              "unit": "g"
+            },
+            {
+              "name": "beef broth",
+              "amount": 1.5,
+              "unit": "liter"
+            },
+            {
+              "name": "baguette",
+              "amount": 1,
+              "unit": "count"
+            },
+            {
+              "name": "gruyère cheese",
+              "amount": 150,
+              "unit": "g"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Caramelize onions in butter for 40 minutes over low heat."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Add beef broth, simmer 20 minutes."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Ladle into oven-safe bowls, top with baguette slices."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Add gruyère and broil 10 minutes until golden."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 15,
+      "cook_time_minutes": 70,
+      "servings": 4,
+      "dietary_tags": [],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "shiro-injera-et",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Ethiopia",
+      "geo": {
+        "ar": "إثيوبيا",
+        "en": "Ethiopia"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "شيرو مع إنجيرا",
+          "description": "الأساس النباتي الإثيوبي: يست بدقيق الحمص مع الثوم وبربري، يؤكل مع إنجيرا إسفنجية.",
+          "ingredients": [
+            {
+              "name": "دقيق حمص",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "دقيق تيف",
+              "amount": 3,
+              "unit": "cups"
+            },
+            {
+              "name": "زيت نيجيلا",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "ثوم",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "بهار بربري",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "تخمير عجينة دقيق تيف بالماء لمدة ثلاثة أيام."
+            },
+            {
+              "step_number": 2,
+              "instruction": "اسكب العجينة على ملاعق حارّة (مِتَط) حتى تفقّر منكّ الإنجيرا."
+            },
+            {
+              "step_number": 3,
+              "instruction": "قلّب زيت النيجيلا مع الثوم والبربري."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أقُم في دقيق الحمص مع الماء، اطبخ حتى القوام الرسوء؛ قدّم مع إنجيرا."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Shiro with Injera",
+          "description": "Ethiopian vegan staple — a garlicky chickpea-flour stew with berbere on spongy injera.",
+          "ingredients": [
+            {
+              "name": "chickpea flour",
+              "amount": 2,
+              "unit": "cups"
+            },
+            {
+              "name": "teff flour",
+              "amount": 3,
+              "unit": "cups"
+            },
+            {
+              "name": "nigella seed oil",
+              "amount": 2,
+              "unit": "tbsp"
+            },
+            {
+              "name": "garlic",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "berbere spice",
+              "amount": 2,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Ferment a teff batter with water for three days."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Pour the batter onto a hot mitad (griddle); it bubbles into injera."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Sauté nigella oil with garlic and berbere spice."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Whisk in chickpea flour with water; simmer until silky; serve on injera."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 30,
+      "cook_time_minutes": 40,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal",
+        "Gluten-Free"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "uzbek-plov",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Uzbekistan",
+      "geo": {
+        "ar": "أوزبكستان",
+        "en": "Uzbekistan"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "بلوف أوزبكي (أوشي)",
+          "description": "البلوف في آسيا الوسطى: خروف مع جزر وبصل، في كبزان المقشور.",
+          "ingredients": [
+            {
+              "name": "لحم خروف",
+              "amount": 700,
+              "unit": "g"
+            },
+            {
+              "name": "بصل",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "جزر",
+              "amount": 600,
+              "unit": "g"
+            },
+            {
+              "name": "أرز ديزرا",
+              "amount": 700,
+              "unit": "g"
+            },
+            {
+              "name": "زيت بذور الشمس",
+              "amount": 200,
+              "unit": "ml"
+            },
+            {
+              "name": "كمون",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "سخّن الزيت في الكازان وّوّن الخروف حتى البني."
+            },
+            {
+              "step_number": 2,
+              "instruction": "أضف البصل ثم جزرشيك طويق: اطبخ حتى الليّن."
+            },
+            {
+              "step_number": 3,
+              "instruction": "صرب الماء الحار الغمسة، أضف الكمون و الثوم؛ اطبخ 40 دقيقة (زرباك)."
+            },
+            {
+              "step_number": 4,
+              "instruction": "أضف الأرز، غطّه بالماء; اطبخ باكبر حتى الماص."
+            },
+            {
+              "step_number": 5,
+              "instruction": "غطّ محكّم، طبخ 20 دقيقة على نار جيدة جداً، راحة قبل 10 دقائق."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Uzbek Plov (Oshi)",
+          "description": "Central Asian pilaf — lamb, carrots and onions built in a kazan with devzira rice.",
+          "ingredients": [
+            {
+              "name": "lamb",
+              "amount": 700,
+              "unit": "g"
+            },
+            {
+              "name": "onions",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "carrots",
+              "amount": 600,
+              "unit": "g"
+            },
+            {
+              "name": "devzira rice",
+              "amount": 700,
+              "unit": "g"
+            },
+            {
+              "name": "sunflower oil",
+              "amount": 200,
+              "unit": "ml"
+            },
+            {
+              "name": "cumin",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Heat oil in a kazan; sear lamb chunks until brown."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Add onions then thick carrot matchsticks; cook until soft."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Pour hot water to cover; add cumin and garlic heads; simmer 40 min (zirvak)."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Add rice, cover with water; cook uncovered until absorbed."
+            },
+            {
+              "step_number": 5,
+              "instruction": "Cover tightly, steam 20 minutes on very low heat; rest 10 minutes before fluffing."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 30,
+      "cook_time_minutes": 80,
+      "servings": 6,
+      "dietary_tags": [
+        "Halal",
+        "Gluten-Free"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "basbousa-levant",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي",
+        "en": "Traditional folk recipe — locally seeded, no external URL"
+      },
+      "origin_country": "Levant",
+      "geo": {
+        "ar": "بلاد الشام",
+        "en": "Levant"
+      },
+      "category": "Dessert",
+      "languages": {
+        "ar": {
+          "title": "بسبوسة",
+          "description": "حلوى سموليما شامية مقيّدة بالشربات، مقصوصة بماسل ذهبي مع لوز.",
+          "ingredients": [
+            {
+              "name": "سمولينا",
+              "amount": 2.5,
+              "unit": "cups"
+            },
+            {
+              "name": "زبادي",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "سكر",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "سمن",
+              "amount": 0.5,
+              "unit": "cup"
+            },
+            {
+              "name": "بيكنج بودر",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "امزج السمولينا مع الزبادي والسمن؛ اتركها ساعة."
+            },
+            {
+              "step_number": 2,
+              "instruction": "افرد في صينية مدهونة، نقّش معيّنات، ضع لوزة في كل معيّن."
+            },
+            {
+              "step_number": 3,
+              "instruction": "اطبخ 30 دقيقة على 180°C حتى الذهب."
+            },
+            {
+              "step_number": 4,
+              "instruction": "اسكب الشربات الباردة على الكعكة الساخنة؛ 1 ساعة قبل التقديم."
+            }
+          ],
+          "source_note": "وصفة شعبية معروفة عاماً — زُرعت كبذرة محلية بلا رابط خارجي"
+        },
+        "en": {
+          "title": "Basbousa (Semolina Cake)",
+          "description": "Syrup-soaked Levantine semolina cake — scored diamonds topped with almonds.",
+          "ingredients": [
+            {
+              "name": "semolina",
+              "amount": 2.5,
+              "unit": "cups"
+            },
+            {
+              "name": "yogurt",
+              "amount": 200,
+              "unit": "g"
+            },
+            {
+              "name": "sugar",
+              "amount": 1,
+              "unit": "cup"
+            },
+            {
+              "name": "clarified butter (samna)",
+              "amount": 0.5,
+              "unit": "cup"
+            },
+            {
+              "name": "baking powder",
+              "amount": 1,
+              "unit": "tbsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "Mix semolina with yogurt and ghee; rest 1 hour."
+            },
+            {
+              "step_number": 2,
+              "instruction": "Spread in a greased pan, score diamonds, drop an almond on each."
+            },
+            {
+              "step_number": 3,
+              "instruction": "Bake at 180°C for 30 minutes until golden."
+            },
+            {
+              "step_number": 4,
+              "instruction": "Pour cold syrup over the hot cake; rest 1 hour before serving."
+            }
+          ],
+          "source_note": "Traditional folk recipe — locally seeded, no external URL"
+        }
+      },
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 30,
+      "servings": 8,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal",
+        "May-Contain-Gluten"
+      ],
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T00:00:00.000Z"
+    }
+  ]
+}

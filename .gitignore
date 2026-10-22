@@ -1,0 +1,7 @@
+# Baran Cook — deployment runtime state
+data/import-history.json
+*.tmp
+.DS_Store
+.env
+node_modules/
+docs/*.png

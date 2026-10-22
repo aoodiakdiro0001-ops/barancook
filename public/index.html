@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Baran Cook — أطلس الوصفات العالمي</title>
+<meta name="description" content="Baran Cook — موسوعة طهي عالمية متعددة اللغات: بحث فوري، تصفية حسب البلد والحيوانية، وحدة مقادير موحّدة.">
+<link rel="stylesheet" href="/css/styles.css?v=101">
+</head>
+<body>
+<header class="up">
+  <div class="brand"><span class="mark">🍳</span><strong>Baran Cook</strong><small>أطلس الوصفات العالمي</small></div>
+  <nav class="tools">
+    <div class="mids">
+      <input id="search-box" type="search" placeholder="ابحث في الوصفات… (هوموس، رامن، bibimbap)">
+      <select id="lang-sel" title="اللغة">
+        <option value="ar">العربية</option><option value="en">English</option>
+      </select>
+      <select id="unit-sel" title="نظام المقاييس">
+        <option value="metric">متري (غ/مل)</option>
+        <option value="imperial">إمبريالي (oz/fl oz)</option>
+        <option value="original">كما هي</option>
+      </select>
+      <select id="country-sel" title="بلد المنشأ"><option value="">كل البلدان</option></select>
+      <button id="diet-veg" class="chip" title="نباتي">🌿 نباتي</button>
+      <button id="diet-hal" class="chip" title="حلال">☪︎ حلال</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <section class="strip"><span id="stat-line">…</span></section>
+  <section id="results" class="grid"></section>
+</main>
+
+<div id="detail" class="modal" hidden>
+  <div class="sheet">
+    <button class="close" id="detail-close" title="إغلاق">✕</button>
+    <div class="sheet-body" id="sheet-body"></div>
+  </div>
+</div>
+
+<footer class="foot">
+  <p><strong>Baran Cook</strong> — Baranavisat · <a href="mailto:baranavisat@gmail.com">baranavisat@gmail.com</a> · WhatsApp: <a href="https://wa.me/905313263722">+90 531 326 37 22</a> · baranavi.gumroad.com</p>
+  <p class="din">BTC: <code>bc1q8dhtdrndxsl70e97t8grydfe6pjue37zrhzf6c</code> · USDT-TRC20: <code>TLWdTjqqogkXNEXGiPWsGdjFP6ioycxeWW</code></p>
+  <p class="honesty">النواة محلية: <span id="honesty-count">…</span> وصفة مقدّسة مطبخاً · لا زحف مباشر من هذا الجهاز · الاستيعاب عبر <code>/api/import</code></p>
+</footer>
+
+<script src="/js/app.js?v=101"></script>
+</body>
+</html>
