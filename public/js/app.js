@@ -58,10 +58,26 @@
     const tags = (m.dietary_tags || []).map(t => badge(t, t === 'Vegetarian' ? 'd' : '')).join(' ');
     const showSnip = snip && snip !== title;
     return '<article class="card" data-id="' + m.id + '">' +
+      (m.image ? '<img class="card-img" loading="lazy" src="' + String(m.image).replace('.jpg', '/small.jpg') + '" alt="">' : '') +
       '<h3>' + title + '</h3>' +
-      '<div class="meta">' + badge(m.country, 'c') + tags + '</div>' +
+      '<div class="meta">' + badge(m.country, 'c') + catBadge(m.category) + tags + '</div>' +
       (showSnip ? '<p>' + snip + '</p>' : '') +
       '</article>';
+  }
+
+  /* honest standard-dictionary category labels for the Arabic UI */
+  const CAT_AR = {
+    'Main Course': 'طبق رئيسي', 'Dessert': 'حلويات', 'Breakfast': 'فطور',
+    'Starter': 'مقدّمات', 'Side': 'طبق جانبي', 'Pasta': 'معكرونة',
+    'Seafood': 'أطعمة بحرية', 'Chicken': 'دجاج', 'Beef': 'لحم بقر',
+    'Lamb': 'لحم خروف', 'Pork': 'خنزير', 'Goat': 'ماعز',
+    'Vegan': 'نباتي صرف', 'Vegetarian': 'نباتي', 'Miscellaneous': 'متنوع',
+    'Soup': 'شوربة', 'Street Food': 'طعام شعبي', 'Appetizer': 'مقدّمة'
+  };
+
+  function catBadge(c) {
+    if (!c) return '';
+    return '<span class="chip cat">' + (langSel() === 'ar' ? (CAT_AR[c] || c) : c) + '</span>';
   }
 
   async function refreshStats() {
@@ -89,16 +105,20 @@
     if (typeof fillCountryDatalist === 'function') fillCountryDatalist();
   }
 
+  let listState = { page: 1, total: 0 };
+
   async function load() {
     const q = box.value.trim();
-    let url;
+    const more = $('#more-btn');
     if (q) {
-      url = '/api/search?q=' + encodeURIComponent(q) + '&limit=24';
+      url = '/api/search?q=' + encodeURIComponent(q) + '&limit=50';
       if (country.value) url += '&country=' + encodeURIComponent(country.value);
       if (diet) url += '&diet=' + encodeURIComponent(diet);
       const data = await j(url);
       if (!data || !data.ok) { grid.innerHTML = '<p style="color:var(--warn)">تعذّر البحث — retry later</p>'; return; }
-      grid.innerHTML = data.items.length ? data.items.map(card).join('') : '<p style="color:var(--dim)">لا نتائج (الموسوعة محلية — وصفاتك القادمة عبر /api/import)</p>';
+      grid.innerHTML = data.items.length ? data.items.map(card).join('') : '<p style="color:var(--dim)">لا نتائج — جرّب لغة أخرى أو أضف الوصفة بنفسك ✓</p>';
+      more.hidden = data.count === 50; // search API caps at 50 — if full, hint deeper filtering
+      if (!more.hidden) more.textContent = 'أظهر النتائج الـ 50 الأولى — نَقِّص البحث لتصفية أدق';
       return;
     }
     const u = new URL('/api/recipes', location.origin);
@@ -107,14 +127,33 @@
     if (diet) u.searchParams.set('diet', diet);
     const data = await j(u.toString());
     if (!data || !data.ok) { grid.innerHTML = '<p style="color:var(--warn)">تعذّر جلب القائمة</p>'; return; }
-    const dishes = data.items.map(m => ({
-      id: m.id, title_ar: m.title_ar, title_en: m.title_en,
-      country: m.country, dietary_tags: m.dietary_tags, country_key: m.country,
-      snippet_ar: m.title_ar, snippet_en: m.title_en,
-    }));
-    // snippet fallback: use titles so cards look complete pre-detail
-    grid.innerHTML = dishes.map(card).join('');
+    listState = { page: 1, total: data.total || data.items.length };
+    grid.innerHTML = data.items.map(card).join('');
+    more.hidden = true;
+    if (listState.total > data.items.length) {
+      more.hidden = false;
+      more.textContent = '⬇️ المزيد (' + (listState.total - data.items.length) + ' من ' + listState.total + ')';
+      more.dataset.extra = String(listState.total - data.items.length);
+    }
   }
+
+  $('#more-btn').addEventListener('click', async () => {
+    const more = $('#more-btn');
+    listState.page += 1;
+    const u = new URL('/api/recipes', location.origin);
+    u.searchParams.set('limit', '24');
+    u.searchParams.set('page', String(listState.page));
+    if (country.value) u.searchParams.set('country', country.value);
+    if (diet) u.searchParams.set('diet', diet);
+    const data = await j(u.toString());
+    if (!data || !data.ok || !data.items.length) { more.hidden = true; return; }
+    grid.insertAdjacentHTML('beforeend', data.items.map(card).join(''));
+    const shown = listState.page * 24;
+    more.hidden = shown >= listState.total;
+    if (!more.hidden) {
+      more.textContent = '⬇️ المزيد (' + (listState.total - shown) + ' من ' + listState.total + ')';
+    }
+  });
 
   async function openDetail(id) {
     const u = '/api/recipes/' + encodeURIComponent(id) + '?lang=' + encodeURIComponent(langSel()) + '&units=' + encodeURIComponent(unit.value);
@@ -130,6 +169,7 @@
     sheetBody.innerHTML =
       '<h2>' + r.title + '</h2>' +
       '<div class="heads">' + badge(r.country, 'c') + badge(r.category || '', '') + tags + '</div>' +
+      ((r.media && r.media.images && r.media.images[0]) ? '<img class="hero-img" src="' + r.media.images[0] + '" alt="">' : '') +
       '<p style="color:var(--dim)">' + (r.description || '') + '</p>' +
       (surrounds(r) ) +
       '<ul class="ing">' + ingList + '</ul>' +

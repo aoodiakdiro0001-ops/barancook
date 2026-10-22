@@ -13,9 +13,9 @@ pyget() { python3 -c "import sys,json; d=json.load(sys.stdin); print(eval('d'+sy
 H=$(curl -s "$BASE/api/health")
 [ "$(echo "$H" | pyget "['ok']")" = "True" ] && ok "health" || bad "health -> $H"
 
-# 2) recipes list total=12
+# 2) recipes list total>=700 (v1.2.0: 831 from MealDB full corpus + curated seeds)
 S2=$(curl -s "$BASE/api/recipes?limit=1" | pyget "['total']")
-[ "$S2" -ge 12 ] 2>/dev/null && ok "recipes total≥12 (count=$S2)" || bad "recipes total=$S2"
+[ "$S2" -ge 700 ] 2>/dev/null && ok "recipes total≥700 (count=$S2)" || bad "recipes total=$S2"
 
 # 3) countries include Japan
 J=$(curl -s "$BASE/api/countries" | python3 -c "import sys,json; d=json.load(sys.stdin); print(any(c['code']=='Japan' for c in d['countries']))")
@@ -32,6 +32,10 @@ S1=$(curl -s "$BASE/api/search?q=%D8%AD%D9%85%D8%B5" | python3 -c "import sys,js
 # 6) search english ramen
 S2=$(curl -s "$BASE/api/search?q=ramen" | python3 -c "import sys,json; d=json.load(sys.stdin); print(any(i['id']=='chicken-ramen-jp' for i in d['items']))")
 [ "$S2" = "True" ] && ok "search en ramen" || bad "search en ramen"
+
+# 6b) v1.2.0 — Arabic query expansion (برياني finds the imported biryani)
+S2b=$(curl -s "$BASE/api/search?q=%D8%A8%D8%B1%D9%8A%D8%A7%D9%86%D9%8A" | python3 -c "import sys,json; d=json.load(sys.stdin); print(any('biryani' in i['id'] for i in d['items']))")
+[ "$S2b" = "True" ] && ok "search ar برياني→biryani (expansion)" || bad "search ar برياني expansion"
 
 # 7) diet=Vegetarian nonempty
 V=$(curl -s "$BASE/api/recipes?diet=Vegetarian&limit=1" | pyget "['total']")

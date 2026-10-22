@@ -1,6 +1,6 @@
 {
   "name": "barancook",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Baran Cook — Global Recipe Atlas (honest local core + community contributions + PWA + unit normalizer + AI hooks). Zero-dependency Node.js.",
   "main": "server.js",
   "scripts": {

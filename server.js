@@ -117,8 +117,29 @@ function buildIndex() {
   idx = new Map();
   for (const r of recipes) addToIndex(r);
 }
+// Honest Arabic-search expansion: common Arabic food words -> their English equivalents.
+// This expands the QUERY (dictionary mapping), never the recipe content.
+const AR_QUERY_ALIASES = {
+  'برياني': 'biryani', 'بيتزا': 'pizza', 'رامن': 'ramen', 'نودلز': 'noodles',
+  'معكرونة': 'pasta', 'باستا': 'pasta', 'لازانيا': 'lasagna', 'سباغيتي': 'spaghetti',
+  'كاري': 'curry', 'تندوري': 'tandoori', 'شوربة': 'soup', 'شربات': 'soup',
+  'دجاج': 'chicken', 'لحم': 'beef', 'خروف': 'lamb', 'ضأن': 'lamb', 'بيف': 'beef',
+  'سمك': 'fish', 'روبيان': 'prawns', 'أرز': 'rice', 'رز': 'rice',
+  'خبز': 'bread', 'فطيرة': 'pie', 'فطائر': 'pie', 'حلويات': 'dessert',
+  'حلوى': 'dessert', 'كيك': 'cake', 'بودينغ': 'pudding',
+  'كسكس': 'couscous', 'شاورما': 'shawarma', 'كباب': 'kebab', 'فلافل': 'falafel',
+  'سلطة': 'salad', 'شاكشوكة': 'shakshuka', 'بايلا': 'paella', 'سوشي': 'sushi',
+  'تمبورا': 'tempura', 'مكرونة': 'pasta', 'لوز': 'almonds',
+  'نباتي': 'vegetarian', 'عصيدة': 'porridge', 'منسف': 'mansaf', 'كبسة': 'kabsa',
+  'مسقعة': 'moussaka', 'بشاميل': 'bechamel',
+};
 function searchRecipes(q, { lang, country, diet, limit }) {
   const tokens = tokenize(q);
+  // expand Arabic queries with their English equivalents (query-level dictionary only)
+  for (const t of [...tokens]) {
+    const alias = AR_QUERY_ALIASES[t];
+    if (alias) tokens.push(alias);
+  }
   const scores = new Map();
   for (const tok of tokens) {
     const m = idx.get(tok);
@@ -236,6 +257,15 @@ function recipetoLocale(r, lang, units) {
     return ing;
   });
   view.steps = (L.steps || []).map(s => ({ step_number: s.step_number, instruction: s.instruction }));
+  // Honest formatting fallback: some imported corpora (TheMealDB) keep instructions as a
+  // multi-line description. Split the REAL instruction text into numbered steps — never invent content.
+  if (!view.steps.length && view.description && /\n/.test(view.description)) {
+    const lines = view.description.split('\n').map(x => x.trim()).filter(x => x.length > 25);
+    if (lines.length > 1) {
+      view.steps = lines.map((s, i) => ({ step_number: i + 1, instruction: s }));
+      view.steps_from_description = true;
+    }
+  }
   view.prep_time_minutes = r.prep_time_minutes;
   view.cook_time_minutes = r.cook_time_minutes;
   view.servings = r.servings;
@@ -304,7 +334,7 @@ function serveStatic(res, filePath) {
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'no-referrer',
-      'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self'; manifest-src 'self'; connect-src 'self'",
+      'Content-Security-Policy': "default-src 'self'; img-src 'self' data: https://www.themealdb.com; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self'; manifest-src 'self'; connect-src 'self'",
     });
     fs.createReadStream(filePath).pipe(res);
   });
@@ -350,6 +380,8 @@ async function importRecipes(payload, meta) {
       source_url: r.source_url || null,
       source_note: r.source_note || { ar: 'وصفة مستوردة', en: 'Imported recipe' },
       origin_country: String(r.origin_country),
+      ar_title: (typeof r.ar_title === 'string' && r.ar_title.trim()) ? r.ar_title.trim() : null,
+      geo: r.geo || null,
       recipe_id_schema_note: r.recipe_id_schema_note || { ar: 'معرّف نصي بديل عن uuid_v4 صالح للاستخدام البشري', en: 'Human-readable id (uuid_v4 kept optional in import schema)' },
       category: r.category || 'Main Course',
       languages: r.languages,
@@ -471,7 +503,7 @@ async function route(req, res) {
   }
 
   // ---------- health ----------
-  if (p === '/api/health') return json(res, 200, { ok: true, service: 'barancook', version: '1.1.0', recipes: recipes.length, index_tokens: idx.size, time: new Date().toISOString(), llm_bridge: LLM_URL ? 'configured' : 'dormant', admin: ADMIN_TOKEN ? 'token_required_for_remote_import' : 'local_only_import', community: 'open_form_submission', pwa: 'manifest+service-worker' });
+  if (p === '/api/health') return json(res, 200, { ok: true, service: 'barancook', version: '1.2.0', recipes: recipes.length, index_tokens: idx.size, time: new Date().toISOString(), llm_bridge: LLM_URL ? 'configured' : 'dormant', admin: ADMIN_TOKEN ? 'token_required_for_remote_import' : 'local_only_import', community: 'open_form_submission', pwa: 'manifest+service-worker' });
 
   // ---------- stats (honesty) ----------
   if (p === '/api/stats') {
@@ -505,7 +537,7 @@ async function route(req, res) {
     const start = (page - 1) * limit;
     const items = list.slice(start, start + limit).map(r => ({
       id: r.id,
-      title_ar: r.languages && r.languages.ar && r.languages.ar.title,
+      title_ar: (r.languages && r.languages.ar && r.languages.ar.title) || r.ar_title || null,
       title_en: r.languages && r.languages.en && r.languages.en.title,
       country: r.origin_country,
       category: r.category,
@@ -513,6 +545,7 @@ async function route(req, res) {
       prep_time_minutes: r.prep_time_minutes,
       cook_time_minutes: r.cook_time_minutes,
       servings: r.servings,
+      image: r.media && Array.isArray(r.media.images) && r.media.images[0] || null,
     }));
     return json(res, 200, { ok: true, total: list.length, page, limit, items });
   }
@@ -546,7 +579,7 @@ async function route(req, res) {
     const diet = q.get('diet');
     const limit = q.get('limit');
     const found = searchRecipes(q0, { lang, country, diet, limit: Number(limit) || 12 });
-    return json(res, 200, { ok: true, q: q0, count: found.length, items: found.map(r => ({ id: r.id, title_ar: r.languages && r.languages.ar && r.languages.ar.title, title_en: r.languages && r.languages.en && r.languages.en.title, country: r.origin_country, dietary_tags: r.dietary_tags, snippet_ar: r.languages && r.languages.ar && r.languages.ar.description ? r.languages.ar.description.slice(0, 90) : '', snippet_en: r.languages && r.languages.en && r.languages.en.description ? r.languages.en.description.slice(0, 90) : '' })) });
+    return json(res, 200, { ok: true, q: q0, count: found.length, items: found.map(r => ({ id: r.id, title_ar: (r.languages && r.languages.ar && r.languages.ar.title) || r.ar_title || null, title_en: r.languages && r.languages.en && r.languages.en.title, country: r.origin_country, dietary_tags: r.dietary_tags, image: r.media && Array.isArray(r.media.images) && r.media.images[0] || null, snippet_ar: r.languages && r.languages.ar && r.languages.ar.description ? r.languages.ar.description.slice(0, 90) : '', snippet_en: r.languages && r.languages.en && r.languages.en.description ? r.languages.en.description.slice(0, 90) : '' })) });
   }
 
   // ---------- normalize ----------

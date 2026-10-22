@@ -379,59 +379,73 @@ RECIPES = [
     ),
 ]
 
+def _steps_text(block, L):
+    """Steps from either curated format (structured dicts) or seed format (plain strings)."""
+    s = block.get("steps")
+    if isinstance(s, list) and s and isinstance(s[0], dict):
+        return [x.get("instruction", "") for x in s]
+    if L == "ar":
+        return block.get("steps_steps") or []
+    return block.get("steps_en") or []
+
+
 def build():
-    out = {"version": 1, "updated_at": "2026-10-22T00:00:00.000Z", "recipes": []}
+    from datetime import datetime, timezone
+    out = {"version": 2,
+           "updated_at": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z"),
+           "recipes": []}
     for r in RECIPES:
         langs = {}
         for L in ("ar", "en"):
-            key_desc = "description"
-            ingredients = r[L]["ingredients"]
-            steps_list = []
-            raw = r[L].get("steps_steps") or r[L].get("steps_en") or []
-            for i, t in enumerate(raw, start=1):
-                steps_list.append({"step_number": i, "instruction": t})
-            # support bilingual steps list for ar/en separately
-            steps_bi = None
-            for s in r.get("steps", []):
-                steps_bi = s  # take last; not used for these recipes
-            if steps_bi is None and L == "en":
-                raw2 = r["ar"].get("steps_steps") or []
-                if not raw and raw2:
-                    pass  # en step list present above; fallback to ar text if not provided
-            languages = {
-                "title": r[L]["title"],
-                "description": r[L][key_desc],
-                "ingredients": ingredients,
-                "steps": [{"step_number": i, "instruction": (r[L].get("steps_steps") or r[L].get("steps_en") or [])[i-1]}
-                          for i in range(1, len(raw) + 1)]
+            block = r[L]
+            steps_text = _steps_text(block, L)
+            langs[L] = {
+                "title": block["title"],
+                "description": block["description"],
+                "ingredients": block["ingredients"],
+                "steps": [{"step_number": i + 1, "instruction": s} for i, s in enumerate(steps_text)],
+                "source_note": r["source_note"][L],
             }
-            LANGS = {"ar": {"title": r["ar"]["title"], "description": r["ar"]["description"],
-                             "ingredients": r["ar"]["ingredients"],
-                             "steps": [{"step_number": i+1, "instruction": s} for i, s in enumerate(r["ar"]["steps_steps"])],
-                             "source_note": r["source_note"]["ar"]},
-                     "en": {"title": r["en"]["title"], "description": r["en"]["description"],
-                             "ingredients": r["en"]["ingredients"],
-                             "steps": [{"step_number": i+1, "instruction": s} for i, s in enumerate(r["en"]["steps_en"])],
-                             "source_note": r["source_note"]["en"]}}
-            langs[L] = LANGS[L]
         out["recipes"].append({
             "id": r["id"], "source_url": r["source_url"], "source_note": r["source_note"],
             "origin_country": r["origin_country"], "geo": r["geo"], "category": r["category"],
             "languages": langs,
             "prep_time_minutes": r["prep"], "cook_time_minutes": r["cook"],
             "servings": r["servings"], "dietary_tags": r["tags"],
+            "community": False,
             "media": {"images": [], "videos": []},
-            "created_at": "2026-10-22T00:00:00.000Z",
+            "created_at": out["updated_at"],
         })
-    # safety: circular extra vars cleanup
-    for key in ("ingredients", "steps_steps", "steps_en", "title", "description"):
-        for r in out["recipes"]:
-            pass
     return out
 
+
+def preserve_live_extras(out):
+    """Keep records added at runtime (community submissions / earlier imports) so that
+    rebuilds never wipe live user content. Extras = ids not present in the seed set."""
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "recipes.json")
+    try:
+        old = json.load(open(path, encoding="utf-8"))
+        old_recs = old.get("recipes", []) if isinstance(old, dict) else old
+    except Exception:
+        return 0
+    seed_ids = {r["id"] for r in out["recipes"]}
+    # keep ONLY live user-submitted records — old machine imports are re-imported
+    # fresh from their source seed (data/mealdb_seed.json) rebuild after rebuild.
+    extras = [x for x in old_recs
+              if x.get("id") and x.get("id") not in seed_ids
+              and (x.get("community") is True
+                   or (isinstance(x.get("source_note"), dict)
+                       and "مستخدم" in str(x["source_note"].get("ar", ""))))]
+    out["recipes"].extend(extras)
+    return len(extras)
+
+
 if __name__ == "__main__":
+    from arabic_curated import CURATED
+    RECIPES += CURATED
     data = build()
+    extras = preserve_live_extras(data)
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "recipes.json")
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-    print(f"[build_recipes] wrote {len(data['recipes'])} recipes -> {path}")
+    print(f"[build_recipes] wrote {len(data['recipes'])} recipes -> {path} (preserved {extras} live extras)")

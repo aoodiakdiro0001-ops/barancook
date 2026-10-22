@@ -4,7 +4,7 @@
    - /api/*: network-first, cache copy for offline browsing of last seen data
 */
 'use strict';
-const CACHE = 'barancook-v1.1.1';
+const CACHE = 'barancook-v1.2.0';
 const SHELL = ['/', '/css/styles.css', '/js/app.js', '/manifest.webmanifest', '/icons/icon-192.png', '/icons/icon-512.png'];
 
 self.addEventListener('install', (e) => {
