@@ -54,6 +54,36 @@ main{padding:20px 22px 26px}
 .sheet small.mtime{color:var(--dim);font-size:12px}
 .sheet code{background:#0b1017;padding:1px 6px;border-radius:6px;color:var(--acc)}
 
+/* ---------- community add form ---------- */
+button.chip.primary{background:var(--grad);color:#06231f;font-weight:700}
+.add-form{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+.add-form label{display:flex;flex-direction:column;gap:6px;font-size:13px;color:var(--dim)}
+.add-form input,.add-form textarea{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--text);font:inherit}
+.add-form textarea{resize:vertical;line-height:1.6;min-height:70px}
+.add-form input:focus,.add-form textarea:focus{outline:2px solid rgba(45,212,191,.4);border-color:var(--acc)}
+.frow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.submit-btn{margin-top:4px;padding:12px 18px;border:none;border-radius:12px;background:var(--grad);color:#06231f;font-weight:800;font-size:15px;cursor:pointer;transition:transform .15s ease}
+.submit-btn:hover{transform:translateY(-2px)}
+.submit-btn:disabled{opacity:.6;cursor:wait}
+.add-hint{color:var(--dim);font-size:12px;line-height:1.6}
+.toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:#16202c;border:1px solid var(--acc);color:var(--text);padding:12px 18px;border-radius:12px;font-size:14px;z-index:200;box-shadow:var(--shadow);max-width:90vw}
+.toast.bad{border-color:var(--warn)}
+.sheet h2{margin-top:4px}
+.sheet p.add-hint{margin:6px 0 0}
+
+/* ---------- small screens (all phones) ---------- */
+@media (max-width:640px){
+  .up{padding:14px}
+  .mids{gap:6px}
+  .brand strong{font-size:17px}
+  .grid{grid-template-columns:1fr 1fr;gap:10px}
+  .card{padding:12px}
+  main{padding:14px}
+  .sheet{padding:16px;max-height:94vh;border-radius:14px}
+  .modal{padding:10px 8px}
+}
+@media (max-width:420px){ .grid{grid-template-columns:1fr} }
+
 /* ---------- footer ---------- */
 .foot{padding:16px 22px 22px;background:var(--bg2);border-top:1px solid var(--line);color:var(--dim);font-size:12.5px;line-height:1.5}
 .foot p{margin:3px 0}

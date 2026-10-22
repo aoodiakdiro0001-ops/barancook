@@ -4,7 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Baran Cook — أطلس الوصفات العالمي</title>
-<meta name="description" content="Baran Cook — موسوعة طهي عالمية متعددة اللغات: بحث فوري، تصفية حسب البلد والحيوانية، وحدة مقادير موحّدة.">
+<meta name="description" content="Baran Cook — موسوعة طهي عالمية متعددة اللغات: بحث فوري، إضافة وصفات من الجمهور، وتوحيد مقادير — تعمل على كل الجهازات كتطبيق مثبّت.">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#0b0f14">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Baran Cook">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
 <link rel="stylesheet" href="/css/styles.css?v=101">
 </head>
 <body>
@@ -24,6 +31,7 @@
       <select id="country-sel" title="بلد المنشأ"><option value="">كل البلدان</option></select>
       <button id="diet-veg" class="chip" title="نباتي">🌿 نباتي</button>
       <button id="diet-hal" class="chip" title="حلال">☪︎ حلال</button>
+      <button id="add-btn" class="chip primary" title="أضف وصفتك">➕ أضف وصفة</button>
     </div>
   </nav>
 </header>
@@ -40,10 +48,43 @@
   </div>
 </div>
 
+<div id="add-modal" class="modal" hidden>
+  <div class="sheet">
+    <button class="close" id="add-close" title="إغلاق">✕</button>
+    <h2 id="add-title-label">➕ أضف وصفتك للأطلس</h2>
+    <p class="add-hint">بساطة هدفنا: اكتب المكونات والخطوات سطراً سطراً — ونحن نرتب كل شيء (الوسوم الغذائية تصنّف آلياً من مكوناتك).</p>
+    <form id="add-form" class="add-form" novalidate>
+      <div class="frow">
+        <label>اسم الوصفة <input id="f-title" required maxlength="120" placeholder="مثال: مسقعة مصرية"></label>
+        <label>البلد <input id="f-country" list="country-list" required maxlength="60" placeholder="مثال: مصر"></label>
+        <datalist id="country-list"></datalist>
+        <label>التصنيف <input id="f-category" list="cat-list" maxlength="40" placeholder="Main Course"></label>
+        <datalist id="cat-list">
+          <option>Main Course</option><option>Appetizer</option><option>Soup</option><option>Salad</option>
+          <option>Dessert</option><option>Side</option><option>Street Food</option><option>Breakfast</option><option>Drink</option>
+        </datalist>
+      </div>
+      <label>وصف قصير <textarea id="f-desc" rows="2" maxlength="300" placeholder="سطر واحد يبرز سرّ الطبق…"></textarea></label>
+      <div class="frow">
+        <label>تحضير (دقيقة) <input id="f-prep" type="number" min="0" max="1440" placeholder="15"></label>
+        <label>طبخ (دقيقة) <input id="f-cook" type="number" min="0" max="1440" placeholder="30"></label>
+        <label>عدد الأفراد <input id="f-servings" type="number" min="1" max="50" placeholder="4"></label>
+      </div>
+      <label>المكونات — سطر لكل مكوّن <textarea id="f-ing" rows="5" required placeholder="2 cups حمّص&#10;4 tbsp طحينة&#10;1/2 كوب عصير ليمون"></textarea></label>
+      <label>الخطوات — سطر لكل خطوة <textarea id="f-steps" rows="5" required placeholder="انقع الحمّص ليلة كاملة&#10;اسلقه مع البيكربونات ثم اخفقه"></textarea></label>
+      <button type="submit" class="submit-btn">🍳 أنشر الوصفة للأطلس</button>
+      <small class="add-hint">تُنشر مباشرة وسرعة دومًا قانوناً شعبياً — `source_url: null` — أي اعتراض: baranavisat@gmail.com</small>
+    </form>
+  </div>
+</div>
+
+<div id="toast" class="toast" hidden></div>
+
 <footer class="foot">
   <p><strong>Baran Cook</strong> — Baranavisat · <a href="mailto:baranavisat@gmail.com">baranavisat@gmail.com</a> · WhatsApp: <a href="https://wa.me/905313263722">+90 531 326 37 22</a> · baranavi.gumroad.com</p>
   <p class="din">BTC: <code>bc1q8dhtdrndxsl70e97t8grydfe6pjue37zrhzf6c</code> · USDT-TRC20: <code>TLWdTjqqogkXNEXGiPWsGdjFP6ioycxeWW</code></p>
-  <p class="honesty">النواة محلية: <span id="honesty-count">…</span> وصفة مقدّسة مطبخاً · لا زحف مباشر من هذا الجهاز · الاستيعاب عبر <code>/api/import</code></p>
+  <p class="honesty">النواة محلية: <span id="honesty-count">…</span> وصفة مقدّسة مطبخاً · لا زحف مباشر من هذا الجهاز · الاستيعاب عبر <code>/api/import</code> · أضف وصفتك زر «➕ أضف وصفة»</p>
+  <p class="pwa-line">📱 <strong>PWA</strong>: ثبّت التطبيق من قائمة المتصفح (تثبيت / إضافة إلى الشاشة الرئيسية) — يعمل بلا إنترنت على هاتفك بعد أول زيارة</p>
 </footer>
 
 <script src="/js/app.js?v=101"></script>

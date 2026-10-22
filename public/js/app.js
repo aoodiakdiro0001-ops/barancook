@@ -10,9 +10,25 @@
   const stat = $('#stat-line');
   const modal = $('#detail');
   const sheetBody = $('#sheet-body');
+  const addModal = $('#add-modal');
+  const addForm = $('#add-form');
 
   let diet = null;
   let timer = null;
+
+  function toast(msg, ok) {
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.toggle('bad', ok === false);
+    t.hidden = false;
+    clearTimeout(t._h);
+    t._h = setTimeout(() => { t.hidden = true; }, 3200);
+  }
+
+  // PWA service worker (offline shell + cached API data)
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+  }
 
   async function j(url, opt) {
     let r;
@@ -70,6 +86,7 @@
         country.appendChild(o);
       }
     }
+    if (typeof fillCountryDatalist === 'function') fillCountryDatalist();
   }
 
   async function load() {
@@ -152,6 +169,83 @@
   });
 
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+
+  /* ---------- community add-recipe form ---------- */
+  function fillCountryDatalist() {
+    const dl = $('#country-list');
+    if (!dl) return;
+    dl.innerHTML = '';
+    [...country.options].slice(1).forEach(o => {
+      const op = document.createElement('option');
+      op.value = o.value;
+      dl.appendChild(op);
+    });
+  }
+
+  function openAddModal() {
+    fillCountryDatalist(); // suggestions from live data + free typing allowed
+    addModal.hidden = false;
+    $('#f-title').focus();
+  }
+
+  function closeAdd() {
+    addModal.hidden = true;
+  }
+
+  $('#add-btn').addEventListener('click', openAddModal);
+  $('#add-close').addEventListener('click', closeAdd);
+  addModal.addEventListener('click', (e) => { if (e.target === addModal) closeAdd(); });
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAdd(); });
+
+  addForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const lines = (id) => String($(id).value || '').split('\n').map(x => x.trim()).filter(Boolean);
+    const title = $('#f-title').value.trim();
+    const payload = {
+      lang: langSel(),
+      title,
+      country: $('#f-country').value.trim(),
+      category: $('#f-category').value.trim(),
+      description: $('#f-desc').value.trim(),
+      prep: $('#f-prep').value.trim(),
+      cook: $('#f-cook').value.trim(),
+      servings: $('#f-servings').value.trim(),
+      ingredients: lines('#f-ing'),
+      steps: lines('#f-steps'),
+    };
+    if (!payload.title || !payload.country || !payload.ingredients.length || !payload.steps.length) {
+      toast('اكمل الحقول الأساسية: الاسم، البلد، مكونات، خطوات', false);
+      return;
+    }
+    const btn = $('.submit-btn');
+    btn.disabled = true;
+    btn.textContent = '⏳ قيد الإضافة…';
+    const res = await fetch('/api/contribute', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    }).catch(() => null);
+    btn.disabled = false;
+    btn.textContent = '🍳 أنشر الوصفة للأطلس';
+    let j = null; try { j = await res.json(); } catch {}
+    if (res && res.ok && j && j.ok) {
+      if (j.duplicates && j.duplicates.length && !(j.added || []).length) {
+        toast('الوصفة موجودة بالأطلس مسبقاً ✓ (منع التكرار يعمل)', false);
+      } else {
+        toast(j.thanks || 'أُضيفت الوصفة شكراً يا بطل! ✓');
+        addForm.reset();
+        closeAdd();
+        await refreshStats();
+        await fillCountries();
+        await load();
+      }
+    } else if (res && res.status === 429) {
+      toast('حدّ المساهمات (10/دقيقة) — حاول بعد قليل', false);
+    } else {
+      const d = (j && j.details) || [];
+      toast('تعذر الإضافة: ' + (d.length ? d.join(' · ') : 'تأكد من الاتصال'), false);
+    }
+  });
 
   (async () => {
     dirSet(langSel());

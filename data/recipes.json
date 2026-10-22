@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-10-22T00:00:00.000Z",
+  "updated_at": "2026-10-22T11:11:27.021Z",
   "recipes": [
     {
       "id": "hummus-levant",
@@ -1615,6 +1615,102 @@
         "videos": []
       },
       "created_at": "2026-10-22T00:00:00.000Z"
+    },
+    {
+      "id": "rcad1f224",
+      "source_url": null,
+      "source_note": {
+        "ar": "وصفة أضافها مستخدم عبر نموذج الموقع",
+        "en": "Recipe submitted by a user through the site form"
+      },
+      "origin_country": "مصر",
+      "recipe_id_schema_note": {
+        "ar": "معرّف نصي بديل عن uuid_v4 صالح للاستخدام البشري",
+        "en": "Human-readable id (uuid_v4 kept optional in import schema)"
+      },
+      "category": "Main Course",
+      "languages": {
+        "ar": {
+          "title": "مسقعة مصرية (نباتي)",
+          "description": "طبق شعبي مصري: باذنجان شيّ مع صلصة طماطم وبصل — نباتي بالكامل.",
+          "ingredients": [
+            {
+              "name": "باذنجان",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "صلصة طماطم",
+              "amount": 1.5,
+              "unit": "cup"
+            },
+            {
+              "name": "بصل",
+              "amount": 2,
+              "unit": "count"
+            },
+            {
+              "name": "ثوم",
+              "amount": 3,
+              "unit": "count"
+            },
+            {
+              "name": "زيت زيتون",
+              "amount": 0.25,
+              "unit": "cup"
+            },
+            {
+              "name": "كمون",
+              "amount": 0.5,
+              "unit": "tsp"
+            },
+            {
+              "name": "ملح",
+              "amount": 1,
+              "unit": "tsp"
+            }
+          ],
+          "steps": [
+            {
+              "step_number": 1,
+              "instruction": "قشر الباذنجان ثم قطّعه شرائح سميكة وشيّها حتى الذهبي."
+            },
+            {
+              "step_number": 2,
+              "instruction": "شوّح البصل والثوم حتى الذهبي."
+            },
+            {
+              "step_number": 3,
+              "instruction": "أضف صلصة الطماطم والكمون، وعلّق على نار هادئة 10 دقائق."
+            },
+            {
+              "step_number": 4,
+              "instruction": "ارفع طبقات باذنجان وصلصة في صينية الفرن."
+            },
+            {
+              "step_number": 5,
+              "instruction": "اطبخ 30 إلى 35 دقيقة على حرارة 180 حتى تنضج."
+            },
+            {
+              "step_number": 6,
+              "instruction": "قدّم ساخنة مع الرز."
+            }
+          ]
+        }
+      },
+      "prep_time_minutes": 20,
+      "cook_time_minutes": 45,
+      "servings": 4,
+      "dietary_tags": [
+        "Vegetarian",
+        "Halal"
+      ],
+      "community": true,
+      "media": {
+        "images": [],
+        "videos": []
+      },
+      "created_at": "2026-10-22T11:11:27.019Z"
     }
   ]
 }

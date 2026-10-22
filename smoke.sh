@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Baran Cook — smoke tests (12 checks against the local API)
+# Baran Cook — smoke tests (16 checks against the local API)
 set -u
 BASE="${BASE:-http://127.0.0.1:3150}"
 PASS=0; FAIL=0
@@ -14,8 +14,8 @@ H=$(curl -s "$BASE/api/health")
 [ "$(echo "$H" | pyget "['ok']")" = "True" ] && ok "health" || bad "health -> $H"
 
 # 2) recipes list total=12
-T=$(curl -s "$BASE/api/recipes?limit=1" | pyget "['total']")
-[ "$T" = "12" ] && ok "recipes total=12" || bad "recipes total=$T"
+S2=$(curl -s "$BASE/api/recipes?limit=1" | pyget "['total']")
+[ "$S2" -ge 12 ] 2>/dev/null && ok "recipes total≥12 (count=$S2)" || bad "recipes total=$S2"
 
 # 3) countries include Japan
 J=$(curl -s "$BASE/api/countries" | python3 -c "import sys,json; d=json.load(sys.stdin); print(any(c['code']=='Japan' for c in d['countries']))")
@@ -67,7 +67,27 @@ DD=$(echo "$D" | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(
 # 12) stats + policy
 ST=$(curl -s "$BASE/api/stats" | pyget "['recipes']")
 PO=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/api/policy")
-[ "$ST" = "12" ] && [ "$PO" = "200" ] && ok "stats=12 + policy 200" || bad "stats=$ST policy=$PO"
+[ "$ST" -ge 12 ] 2>/dev/null && [ "$PO" = "200" ] && ok "stats≥12 + policy 200" || bad "stats=$ST policy=$PO"
+
+# 13) contribute duplicate detect (added=0, no data mutation)
+C1=$(curl -s -X POST "$BASE/api/contribute" -H 'Content-Type: application/json' -d '{"lang":"en","title":"Hummus with Tahini","country":"Levant","ingredients":["2 cups chickpeas"],"steps":["soak overnight","simulate","cook"]}')
+C1J=$(echo "$C1" | python3 -c "import sys,json; d=json.load(sys.stdin); print(len(d['duplicates'])>=1 and len(d['added'])==0)")
+[ "$C1J" = "True" ] && ok "contribute duplicate detect (added=0)" || bad "contribute duplicate -> $C1"
+
+# 14) contribute validation rejects empty form
+C2=$(curl -s -X POST "$BASE/api/contribute" -H 'Content-Type: application/json' -d '{"lang":"ar","title":"","country":"","ingredients":[],"steps":[]}')
+C2J=$(echo "$C2" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d.get('ok') is False and len(d.get('details',[]))>=1)")
+[ "$C2J" = "True" ] && ok "contribute validation rejected" || bad "contribute validation -> $C2"
+
+# 15) PWA manifest served
+MW=$(curl -s "$BASE/manifest.webmanifest")
+MWC=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/manifest.webmanifest")
+echo "$MW" | grep -q "Baran Cook" && [ "$MWC" = "200" ] && ok "PWA manifest 200 + brand name" || bad "PWA manifest -> $MWC"
+
+# 16) service worker + icons served
+SWC=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/service-worker.js")
+IC=$(curl -s -o /dev/null -w '%{http_code}' "$BASE/icons/icon-512.png")
+[ "$SWC" = "200" ] && [ "$IC" = "200" ] && ok "service-worker + icon-512 served" || bad "sw=$SWC icon=$IC"
 
 echo "----"
 echo "smoke: $PASS passed, $FAIL failed"

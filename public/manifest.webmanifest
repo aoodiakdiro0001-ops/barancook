@@ -1,0 +1,20 @@
+{
+  "name": "Baran Cook — أطلس الوصفات العالمي",
+  "short_name": "Baran Cook",
+  "description": "موسوعة طهي عالمية متعددة اللغات — بحث فوري، إضافة وصفات من الجمهور، وتحويل مقاييس يعمل بلا إنترنت بعد التثبيت.",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "barancook",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0b0f14",
+  "theme_color": "#0b0f14",
+  "categories": ["food", "education", "lifestyle"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

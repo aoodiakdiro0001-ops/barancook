@@ -45,6 +45,7 @@ const RATE_WINDOW_MS = 60 * 1000; // per minute per IP
 
 /* ================= RATE LIMITER ================= */
 const rateMap = new Map();
+const communityBurstMap = new Map(); // per-IP throttle for /api/contribute
 function rateLimited(ip) {
   const now = Date.now();
   const rec = rateMap.get(ip);
@@ -157,8 +158,10 @@ const WT_TO_G = {
   lb: 453.59, pound: 453.59, pounds: 453.59,
 };
 const UNIT_ALIASES = {
-  'گرام': 'g', 'غرام': 'g', 'مل': 'ml', 'ملليلتر': 'ml', 'مليلتر': 'ml',
-  'كوب': 'cup', 'أوقية': 'oz', 'رقاقة': 'lbs', 'كلغ': 'kg',
+  'گرام': 'g', 'غرام': 'g', 'غرامات': 'g', 'جرام': 'g', 'مل': 'ml', 'ملليلتر': 'ml', 'مليلتر': 'ml',
+  'كوب': 'cup', 'أكواب': 'cups', 'كوبات': 'cups', 'كوبان': 'cups',
+  'لتر': 'liter', 'كيلو': 'kg', 'كيلوغرام': 'kg', 'كلغ': 'kg',
+  'أوقية': 'oz', 'رطل': 'lb', 'قطع': 'count', 'حبة': 'count', 'فنجان': 'cup',
 };
 const IMPERIAL_FMT = { g: 'oz', ml: 'fl oz' };
 function normalizeIngredient(s) {
@@ -291,7 +294,7 @@ function readBody(req, cap) {
     req.on('error', () => resolve(null));
   });
 }
-const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' };
+const MIME = { '.html': 'text/html; charset=utf-8', '.css': 'text/css; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.png': 'image/png', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.webmanifest': 'application/manifest+json; charset=utf-8' };
 function serveStatic(res, filePath) {
   fs.stat(filePath, (err, st) => {
     if (err || !st.isFile()) { res.writeHead(404); res.end('not found'); return; }
@@ -301,7 +304,7 @@ function serveStatic(res, filePath) {
       'X-Content-Type-Options': 'nosniff',
       'X-Frame-Options': 'DENY',
       'Referrer-Policy': 'no-referrer',
-      'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'",
+      'Content-Security-Policy': "default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; worker-src 'self'; manifest-src 'self'; connect-src 'self'",
     });
     fs.createReadStream(filePath).pipe(res);
   });
@@ -317,7 +320,9 @@ async function atomicWrite(file, obj) {
 
 /* ================= INGESTION (IMPORT) ================= */
 function slugify(s) {
-  return normText(s).replace(/[^a-z0-9- ]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+  let slug = normText(s).replace(/[^a-z0-9- ]/g, '').trim().replace(/\s+/g, '-').slice(0, 60);
+  if (!slug) slug = 'r' + crypto.randomBytes(4).toString('hex'); // Arabic-only titles → short honest id
+  return slug;
 }
 async function importRecipes(payload, meta) {
   const out = { added: [], duplicates: [], rejected: [] };
@@ -351,7 +356,8 @@ async function importRecipes(payload, meta) {
       prep_time_minutes: r.prep_time_minutes || 0,
       cook_time_minutes: r.cook_time_minutes || 0,
       servings: r.servings || 4,
-      dietary_tags: r.dietary_tags || classifyDietary(r),
+      dietary_tags: (Array.isArray(r.dietary_tags) && r.dietary_tags.length) ? r.dietary_tags : classifyDietary(r),
+      community: r.community === true,
       media: r.media || { images: [], videos: [] },
       created_at: r.created_at || new Date().toISOString(),
     };
@@ -378,6 +384,41 @@ async function importRecipes(payload, meta) {
   try { await atomicWrite(HISTORY_FILE, hist); } catch {}
   return out;
 }
+/* ================= COMMUNITY RECIPE LINE PARSER ================= */
+// "2 cups flour" / "1/2 كوب سكر" / "2- ملعقة كبيرة طحينة" / "مكوّن بلا مقدار"
+function parseIngredientLine(raw) {
+  let s = String(raw || '').trim().replace(/^[-*•]+\s*/, '');
+  if (!s) return null;
+  const mA = s.match(/^(\d+(?:[.,،]\d+)?|\d+\s*\/\s*\d+)\s*/);
+  let amount = null;
+  if (mA) {
+    const a = mA[1].replace(/[،,]/g, '.').replace(/\s+/g, '');
+    if (a.includes('/')) {
+      const parts = a.split('/').map(Number);
+      amount = parts[1] ? parts[0] / parts[1] : null;
+    } else amount = Number(a);
+    if (!Number.isFinite(amount)) amount = null;
+    s = s.slice(mA[0].length).trim();
+  }
+  let unit = null;
+  const TWO = [['ملعقة كبيرة', 'tbsp'], ['ملعقة صغيرة', 'tsp'], ['ملعق كبيرة', 'tbsp'], ['كلغا', 'kg']];
+  for (const [k, v] of TWO) {
+    if (s.toLowerCase().startsWith(k.toLowerCase()) && (s.length === k.length || /\s/.test(s[k.length] || ' '))) {
+      unit = v; s = s.slice(k.length).trim(); break;
+    }
+  }
+  if (unit == null) {
+    const t = s.match(/^([\p{L}]{1,12})\s*/u);
+    if (t) {
+      const p = parseUnit(t[1]);
+      if (p) { unit = p.key; s = s.slice(t[0].length).trim(); }
+    }
+  }
+  s = s.replace(/^(من|of|dari)\s+/i, '').trim();
+  if (!s) return null;
+  return { name: s.slice(0, 120), amount, unit };
+}
+
 function meatHit(r) {
   const texts = [];
   for (const lang of ['ar', 'en']) {
@@ -423,11 +464,14 @@ async function route(req, res) {
     if (p === '/' || p === '/index.html') return serveStatic(res, path.join(PUBLIC_DIR, 'index.html'));
     if (p === '/css/styles.css') return serveStatic(res, path.join(PUBLIC_DIR, 'css', 'styles.css'));
     if (p === '/js/app.js') return serveStatic(res, path.join(PUBLIC_DIR, 'js', 'app.js'));
+    if (p === '/manifest.webmanifest') return serveStatic(res, path.join(PUBLIC_DIR, 'manifest.webmanifest'));
+    if (p === '/service-worker.js') return serveStatic(res, path.join(PUBLIC_DIR, 'service-worker.js'));
+    if (p.startsWith('/icons/') && p.endsWith('.png')) return serveStatic(res, path.join(PUBLIC_DIR, 'icons', path.basename(p)));
     if (p === '/favicon.ico') { res.writeHead(204); return res.end(); }
   }
 
   // ---------- health ----------
-  if (p === '/api/health') return json(res, 200, { ok: true, service: 'barancook', version: '1.0.0', recipes: recipes.length, index_tokens: idx.size, time: new Date().toISOString(), llm_bridge: LLM_URL ? 'configured' : 'dormant', admin: ADMIN_TOKEN ? 'token_required_for_remote_import' : 'local_only_import' });
+  if (p === '/api/health') return json(res, 200, { ok: true, service: 'barancook', version: '1.1.0', recipes: recipes.length, index_tokens: idx.size, time: new Date().toISOString(), llm_bridge: LLM_URL ? 'configured' : 'dormant', admin: ADMIN_TOKEN ? 'token_required_for_remote_import' : 'local_only_import', community: 'open_form_submission', pwa: 'manifest+service-worker' });
 
   // ---------- stats (honesty) ----------
   if (p === '/api/stats') {
@@ -480,8 +524,17 @@ async function route(req, res) {
     if (!r) return json(res, 404, { ok: false, error: 'recipe not found' });
     const lang = q.get('lang') || 'ar';
     const units = q.get('units') || 'metric'; // metric | imperial | original
-    const view = recipetoLocale(r, lang, units);
-    if (!view) return json(res, 404, { ok: false, error: 'language not available for this recipe' });
+    let view = recipetoLocale(r, lang, units);
+    let fallbackLang = null;
+    if (!view) {
+      for (const cand of ['ar', 'en']) {
+        if (cand === lang) continue;
+        const v2 = recipetoLocale(r, cand, units);
+        if (v2) { view = v2; fallbackLang = cand; break; }
+      }
+    }
+    if (!view) return json(res, 404, { ok: false, error: 'recipe content not available' });
+    if (fallbackLang) view.language_fallback = fallbackLang;
     return json(res, 200, { ok: true, recipe: view });
   }
 
@@ -525,6 +578,63 @@ async function route(req, res) {
     } catch (e) {
       return json(res, 502, { ok: false, error: 'LLM bridge failed', detail: String(e.message).slice(0, 200) });
     }
+  }
+
+  // ---------- community contribution (anyone can add a recipe) ----------
+  const communityBurst = communityBurstMap;
+  if (p === '/api/contribute' && req.method === 'POST') {
+    const ipC = ip;
+    const now = Date.now();
+    const brec = communityBurst.get(ipC) || { t: now, n: 0 };
+    if (now - brec.t > 60 * 1000) { brec.t = now; brec.n = 0; }
+    brec.n += 1;
+    communityBurst.set(ipC, brec);
+    if (brec.n > 10) return json(res, 429, { ok: false, error: 'حد المساهمات: 10 وصفات/دقيقة — حاول بعد قليل' });
+
+    const raw = await readBody(req, 262144);
+    let body; try { body = JSON.parse(raw || '{}'); } catch { return json(res, 400, { ok: false, error: 'invalid JSON' }); }
+
+    const lang = body.lang === 'en' ? 'en' : 'ar';
+    const title = String(body.title || '').trim();
+    const country = String(body.country || '').trim();
+    const category = String(body.category || '').trim() || 'Main Course';
+    const description = String(body.description || '').trim();
+    const ingredients = (Array.isArray(body.ingredients) ? body.ingredients : [])
+      .map(parseIngredientLine).filter(Boolean).filter(x => x.name);
+    const steps = (Array.isArray(body.steps) ? body.steps : []).map(s => String(s || '').trim()).filter(Boolean);
+    const prep = Number(body.prep) || 0, cook = Number(body.cook) || 0, servings = Number(body.servings) || 4;
+
+    const rejected = [];
+    if (title.length < 2) rejected.push('missing title');
+    if (!ingredients.length) rejected.push('no ingredients');
+    if (!steps.length) rejected.push('no steps');
+    if (!country) rejected.push('missing country');
+    if (rejected.length) return json(res, 400, { ok: false, error: 'validation failed', details: rejected });
+
+    const recipe = {
+      community: true,
+      source_url: null,
+      source_note: { ar: 'وصفة أضافها مستخدم عبر نموذج الموقع', en: 'Recipe submitted by a user through the site form' },
+      origin_country: country,
+      geo: { ar: country, en: country },
+      category,
+      languages: {
+        [lang]: {
+          title, description,
+          ingredients,
+          steps: steps.map((s, i) => ({ step_number: i + 1, instruction: s })),
+        },
+      },
+      prep_time_minutes: prep, cook_time_minutes: cook, servings,
+      dietary_tags: [],
+      media: { images: [], videos: [] },
+    };
+    const out = await importRecipes({ recipes: [recipe] }, { source: 'community', ip: ipC, ua: String(req.headers['user-agent'] || '').slice(0, 100) });
+    return json(res, 200, {
+      ok: true, ...out,
+      note: 'الوسوم الغذائية (نباتي/حلال/جلوتين) صنّفها المحرك الصادق تلقائياً من المكونات',
+      thanks: 'شكراً يا بطل! الوصفة أُضيفت للأطلس وباتت تظهر في البحث فوراً',
+    });
   }
 
   // ---------- import (ingestion entrypoint for scrapers) ----------
