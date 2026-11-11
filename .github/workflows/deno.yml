@@ -26,10 +26,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup Deno
-        # uses: denoland/setup-deno@v1
-        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
+        uses: denoland/setup-deno@v2
         with:
-          deno-version: v1.x
+          deno-version: v2.x
 
       # Uncomment this step to verify the use of 'deno fmt' on each commit.
       # - name: Verify formatting
@@ -38,5 +37,15 @@ jobs:
       - name: Run linter
         run: deno lint
 
-      - name: Run tests
-        run: deno test -A
+      - name: Run tests (smoke suite)
+        # This is a zero-dependency Node.js project: the real test suite is
+        # smoke.sh (17 assertions against the live API), wired as `npm test`.
+        # `deno test -A` found no Deno test modules and exited 1, so the job
+        # was red even when the app was healthy.
+        run: |
+          node server.js &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:3150/api/health >/dev/null && break
+            sleep 1
+          done
+          bash smoke.sh

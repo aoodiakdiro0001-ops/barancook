@@ -46,11 +46,7 @@
     document.documentElement.setAttribute('lang', l);
   }
 
-  function countryLabel(r) {
-    return langSel() === 'ar' ? (r.title_ar ? r.country : '') : r.country;
-  }
-
-  let langSel = () => lang.value;
+  const langSel = () => lang.value;
 
   function card(m) {
     const title = langSel() === 'en' ? (m.title_en || m.title_ar) : (m.title_ar || m.title_en);
@@ -177,7 +173,7 @@
       '<small class="mtime">' + badge('⏱ ' + (r.prep_time_minutes || 0) + 'm prep', '') + badge('🔥 ' + (r.cook_time_minutes || 0) + 'm cook', '') + badge('🍽 ' + (r.servings || 0), '') + '</small>';
     modal.hidden = false;
   }
-  function surrounds(r) { return ''; }
+  function surrounds() { return ''; }
 
   function close(){ modal.hidden = true; }
 
@@ -208,7 +204,7 @@
     load();
   });
 
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+  globalThis.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 
   /* ---------- community add-recipe form ---------- */
   function fillCountryDatalist() {
@@ -235,7 +231,7 @@
   $('#add-btn').addEventListener('click', openAddModal);
   $('#add-close').addEventListener('click', closeAdd);
   addModal.addEventListener('click', (e) => { if (e.target === addModal) closeAdd(); });
-  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAdd(); });
+  globalThis.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAdd(); });
 
   addForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -267,7 +263,7 @@
     }).catch(() => null);
     btn.disabled = false;
     btn.textContent = '🍳 أنشر الوصفة للأطلس';
-    let j = null; try { j = await res.json(); } catch {}
+    let j = null; try { j = await res.json(); } catch { /* non-JSON response: j stays null */ }
     if (res && res.ok && j && j.ok) {
       if (j.duplicates && j.duplicates.length && !(j.added || []).length) {
         toast('الوصفة موجودة بالأطلس مسبقاً ✓ (منع التكرار يعمل)', false);

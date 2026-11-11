@@ -86,9 +86,6 @@ function tokenize(s) {
 /* ================= SEARCH / INDEX ================= */
 let recipes = [];
 let idx = new Map(); // token -> Set of recipe ids (Map keeps insertion; rank via count)
-function idfLet() {
-  // simple BM25-lite: shorter docs win, match density ranks
-}
 function addToIndex(r) {
   const fields = [
     [3, r.languages && r.languages.ar && r.languages.ar.title],
@@ -133,7 +130,7 @@ const AR_QUERY_ALIASES = {
   'نباتي': 'vegetarian', 'عصيدة': 'porridge', 'منسف': 'mansaf', 'كبسة': 'kabsa',
   'مسقعة': 'moussaka', 'بشاميل': 'bechamel',
 };
-function searchRecipes(q, { lang, country, diet, limit }) {
+function searchRecipes(q, { country, diet, limit }) {
   const tokens = tokenize(q);
   // expand Arabic queries with their English equivalents (query-level dictionary only)
   for (const t of [...tokens]) {
@@ -184,7 +181,6 @@ const UNIT_ALIASES = {
   'لتر': 'liter', 'كيلو': 'kg', 'كيلوغرام': 'kg', 'كلغ': 'kg',
   'أوقية': 'oz', 'رطل': 'lb', 'قطع': 'count', 'حبة': 'count', 'فنجان': 'cup',
 };
-const IMPERIAL_FMT = { g: 'oz', ml: 'fl oz' };
 function normalizeIngredient(s) {
   return normText(String(s || '')).replace(/[أإآ]/g, 'ا').replace(/ة/g, 'ه');
 }
@@ -411,9 +407,9 @@ async function importRecipes(payload, meta) {
     await atomicWrite(RECIPES_FILE, { version: 1, updated_at: new Date().toISOString(), recipes });
   }
   let hist = [];
-  try { hist = JSON.parse(await fsp.readFile(HISTORY_FILE, 'utf8')); } catch {}
+  try { hist = JSON.parse(await fsp.readFile(HISTORY_FILE, 'utf8')); } catch { /* no history yet: keep [] */ }
   hist.push({ at: new Date().toISOString(), meta: meta || {}, added: out.added, duplicates: out.duplicates, rejected: out.rejected });
-  try { await atomicWrite(HISTORY_FILE, hist); } catch {}
+  try { await atomicWrite(HISTORY_FILE, hist); } catch { /* history is best-effort: never fail the request */ }
   return out;
 }
 /* ================= COMMUNITY RECIPE LINE PARSER ================= */
@@ -699,7 +695,7 @@ async function route(req, res) {
   const server = http.createServer((req, res) => {
     route(req, res).catch(e => {
       console.error('[barancook] route error:', e);
-      try { json(res, 500, { ok: false, error: 'internal error' }); } catch {}
+      try { json(res, 500, { ok: false, error: 'internal error' }); } catch { /* response already sent */ }
     });
   });
   server.listen(PORT, HOST, () => {
