@@ -1,0 +1,11 @@
+{
+  "lint": {
+    "rules": {
+      "exclude": [
+        "no-window",
+        "no-window-prefix",
+        "no-node-globals"
+      ]
+    }
+  }
+}
